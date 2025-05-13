@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <main class="min-h-screen text-gray-900">
-  <h1 class="text-center font-bold text-3xl my-8">Administrador de OTV</h1>
+  <h1 class="text-center font-bold text-3xl my-8">Administrador Oromar</h1>
 
   <!-- Últimos Episodios -->
   <div class="container mx-auto py-8">
