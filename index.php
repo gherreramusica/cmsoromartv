@@ -38,7 +38,7 @@
 
   <!-- Últimos Programas -->
   <div class="container mx-auto py-8">
-    <h2 class="text-4xl font-bold mb-6">Últimos Programas</h2>
+    <h2 class="text-4xl font-bold mb-6">Últimos Programas.</h2>
 
     <?php
     $programas = new WP_Query(array(
