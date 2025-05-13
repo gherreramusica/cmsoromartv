@@ -32,7 +32,7 @@
       </ul>
       <?php wp_reset_postdata(); ?>
     <?php else : ?>
-      <p>No hay episodios aún.</p>
+      <p>No hay episodios aún</p>
     <?php endif; ?>
   </div>
 
