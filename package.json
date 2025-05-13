@@ -1,0 +1,19 @@
+{
+  "name": "cmsoromartv",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "dev": "tailwindcss -i ./assets/css/main.css -o ./style.css --watch",
+  "build": "tailwindcss -i ./assets/css/main.css -o ./style.css --minify"
+},
+
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.3"
+  }
+}
