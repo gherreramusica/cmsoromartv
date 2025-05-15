@@ -63,3 +63,16 @@ function oromarplay_register_shorts() {
 }
 add_action('init', 'oromarplay_register_shorts');
 
+function filter_episodios_by_programa_relacionado( $args, $request ) {
+  if ( ! empty( $request['programa_relacionado'] ) ) {
+    $args['meta_query'] = [
+      [
+        'key' => 'programa_relacionado',
+        'value' => (int) $request['programa_relacionado'],
+        'compare' => '='
+      ]
+    ];
+  }
+  return $args;
+}
+add_filter( 'rest_episodio_query', 'filter_episodios_by_programa_relacionado', 10, 2 );
