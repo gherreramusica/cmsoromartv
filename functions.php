@@ -76,3 +76,27 @@ function filter_episodios_by_programa_relacionado( $args, $request ) {
   return $args;
 }
 add_filter( 'rest_episodio_query', 'filter_episodios_by_programa_relacionado', 10, 2 );
+
+function oromar_add_programa_relacionado_filter() {
+  // Expone el campo ACF en la respuesta
+  register_rest_field('episodio', 'programa_relacionado', [
+    'get_callback' => function ($post_arr) {
+      return get_field('programa_relacionado', $post_arr['id']);
+    },
+    'schema' => null,
+  ]);
+
+  // Permite filtrar episodios por el campo programa_relacionado
+  add_filter('rest_episodio_query', function ($args, $request) {
+    if (!empty($request['programa_relacionado'])) {
+      $args['meta_query'][] = [
+        'key' => 'programa_relacionado',
+        'value' => intval($request['programa_relacionado']),
+        'compare' => '='
+      ];
+    }
+    return $args;
+  }, 10, 2);
+}
+add_action('rest_api_init', 'oromar_add_programa_relacionado_filter');
+
