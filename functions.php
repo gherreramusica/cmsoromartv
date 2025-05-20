@@ -100,3 +100,23 @@ function oromar_add_programa_relacionado_filter() {
 }
 add_action('rest_api_init', 'oromar_add_programa_relacionado_filter');
 
+function agregar_banner_a_programas() {
+  register_rest_field('programas', 'banner', [
+    'get_callback' => function($post_arr) {
+      $id = get_field('banner', $post_arr['id']);
+      return $id ? wp_get_attachment_url($id) : '';
+    },
+    'schema' => null,
+  ]);
+}
+add_action('rest_api_init', 'agregar_banner_a_programas');
+
+function exponer_external_featured_image() {
+  register_rest_field('programas', 'external_image', [
+    'get_callback' => function($post_arr) {
+      return get_field('external_featured_image', $post_arr['id']);
+    },
+    'schema' => null,
+  ]);
+}
+add_action('rest_api_init', 'exponer_external_featured_image');
