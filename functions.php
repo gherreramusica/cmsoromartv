@@ -101,12 +101,14 @@ function oromar_add_programa_relacionado_filter() {
 add_action('rest_api_init', 'oromar_add_programa_relacionado_filter');
 
 function exponer_banner_url_programa() {
-  register_rest_field('programas', 'banner_url', [
+  register_rest_field('programa', 'banner_url', [
     'get_callback' => function($post_arr) {
-      return get_field('banner', $post_arr['id']) ?: '';
+      $banner_id = get_field('banner', $post_arr['id']);
+      return $banner_id ? wp_get_attachment_url($banner_id) : '';
     },
     'schema' => null,
   ]);
 }
 add_action('rest_api_init', 'exponer_banner_url_programa');
+
 
