@@ -115,5 +115,38 @@ function exponer_banner_url_programa() {
 }
 add_action('rest_api_init', 'exponer_banner_url_programa');
 
+function register_post_type_guia_programacion() {
+  register_post_type('guia', [
+    'label' => 'Guía de Programación',
+    'public' => true,
+    'show_in_rest' => true,
+    'menu_icon' => 'dashicons-schedule',
+    'supports' => ['title'], // puedes activar 'custom-fields' si no usas ACF
+  ]);
+}
+add_action('init', 'register_post_type_guia_programacion');
+
+add_action('rest_api_init', function () {
+  register_rest_field('guia', 'acf_fields', [
+    'get_callback' => function ($post_arr) {
+      $bloques = get_field('bloques', $post_arr['id']);
+      return [
+        'canal' => get_field('canal', $post_arr['id']),
+        'logo' => wp_get_attachment_url(get_field('logo', $post_arr['id'])),
+        'dial' => get_field('dial', $post_arr['id']),
+        'descripcion' => get_field('descripcion', $post_arr['id']),
+        'programas' => array_map(function ($b) {
+          return [
+            'name' => $b['name'],
+            'start' => $b['start'],
+            'end' => $b['end'],
+          ];
+        }, $bloques ?: [])
+      ];
+    },
+    'schema' => null,
+  ]);
+});
+
 
 
