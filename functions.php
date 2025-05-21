@@ -140,13 +140,15 @@ add_action('rest_api_init', function () {
             'name' => $b['name'],
             'start' => $b['start'],
             'end' => $b['end'],
+            'dias' => $b['dias'] ?: [], // ✅ Aquí agregamos los días seleccionados
           ];
-        }, $bloques ?: [])
+        }, $bloques ?: []),
       ];
     },
     'schema' => null,
   ]);
 });
+
 
 
 
