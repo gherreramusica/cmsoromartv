@@ -132,7 +132,7 @@ add_action('rest_api_init', function () {
       $bloques = get_field('bloques', $post_arr['id']);
       return [
         'canal' => get_field('canal', $post_arr['id']),
-        'logo' => wp_get_attachment_url(get_field('logo', $post_arr['id'])),
+        'logo' => get_field('logo', $post_arr['id']) ?: '',
         'dial' => get_field('dial', $post_arr['id']),
         'descripcion' => get_field('descripcion', $post_arr['id']),
         'programas' => array_map(function ($b) {
