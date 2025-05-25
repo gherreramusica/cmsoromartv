@@ -126,28 +126,28 @@ function register_post_type_guia_programacion() {
 }
 add_action('init', 'register_post_type_guia_programacion');
 
-add_action('rest_api_init', function () {
-  register_rest_field('guia', 'acf_fields', [
-    'get_callback' => function ($post_arr) {
-      $bloques = get_field('bloques', $post_arr['id']);
-      return [
-        'canal' => get_field('canal', $post_arr['id']),
-        'logo' => get_field('logo', $post_arr['id']) ?: '',
-        'dial' => get_field('dial', $post_arr['id']),
-        'descripcion' => get_field('descripcion', $post_arr['id']),
-        'programas' => array_map(function ($b) {
-          return [
-            'name' => $b['name'],
-            'start' => $b['start'],
-            'end' => $b['end'],
-            'dias' => $b['dias'] ?: [], // ✅ Aquí agregamos los días seleccionados
-          ];
-        }, $bloques ?: []),
-      ];
-    },
-    'schema' => null,
-  ]);
-});
+// add_action('rest_api_init', function () {
+//   register_rest_field('guia', 'acf_fields', [
+//     'get_callback' => function ($post_arr) {
+//       $bloques = get_field('bloques', $post_arr['id']);
+//       return [
+//         'canal' => get_field('canal', $post_arr['id']),
+//         'logo' => get_field('logo', $post_arr['id']) ?: '',
+//         'dial' => get_field('dial', $post_arr['id']),
+//         'descripcion' => get_field('descripcion', $post_arr['id']),
+//         'programas' => array_map(function ($b) {
+//           return [
+//             'name' => $b['name'],
+//             'start' => $b['start'],
+//             'end' => $b['end'],
+//             'dias' => $b['dias'] ?: [], // ✅ Aquí agregamos los días seleccionados
+//           ];
+//         }, $bloques ?: []),
+//       ];
+//     },
+//     'schema' => null,
+//   ]);
+// });
 
 
 
