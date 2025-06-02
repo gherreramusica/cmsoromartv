@@ -63,6 +63,23 @@ function oromarplay_register_shorts() {
 }
 add_action('init', 'oromarplay_register_shorts');
 
+// Registro de CPT: Banner
+function oromarplay_register_banner() {
+  register_post_type('banner', array(
+    'labels' => array(
+      'name' => 'Banner',
+      'singular_name' => 'Banner'
+    ),
+    'public' => true,
+    'has_archive' => true,
+    'rewrite' => array('slug' => 'banner'),
+    'menu_icon' => 'dashicons-format-video',
+    'supports' => array('title', 'editor', 'thumbnail'),
+    'show_in_rest' => true,
+  ));
+}
+add_action('init', 'oromarplay_register_banner');
+
 function filter_episodios_by_programa_relacionado( $args, $request ) {
   if ( ! empty( $request['programa_relacionado'] ) ) {
     $args['meta_query'] = [
