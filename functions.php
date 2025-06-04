@@ -17,7 +17,18 @@ function oromarplay_register_programas() {
   register_post_type('programa', array(
     'labels' => array(
       'name' => 'Programas',
-      'singular_name' => 'Programa'
+      'singular_name' => 'Programa',
+      'add_new' => 'Añadir Programa',
+      'add_new_item' => 'Añadir nuevo Programa',
+      'edit_item' => 'Editar Programa',
+      'new_item' => 'Nuevo Programa',
+      'view_item' => 'Ver Programa',
+      'search_items' => 'Buscar Programas',
+      'not_found' => 'No se encontraron Programas',
+      'not_found_in_trash' => 'No hay Programas en la papelera',
+      'all_items' => 'Todos los Programas',
+      'menu_name' => 'Programas',
+      'name_admin_bar' => 'Programa' // 👈 Esto reemplaza "Add Post"
     ),
     'public' => true,
     'has_archive' => true,
@@ -29,12 +40,24 @@ function oromarplay_register_programas() {
 }
 add_action('init', 'oromarplay_register_programas');
 
+
 // Registro de CPT: Episodios
 function oromarplay_register_episodios() {
   register_post_type('episodio', array(
     'labels' => array(
       'name' => 'Episodios',
-      'singular_name' => 'Episodio'
+      'singular_name' => 'Episodio',
+      'add_new' => 'Añadir Episodio',
+      'add_new_item' => 'Añadir nuevo Episodio',
+      'edit_item' => 'Editar Episodio',
+      'new_item' => 'Nuevo Episodio',
+      'view_item' => 'Ver Episodio',
+      'search_items' => 'Buscar Episodios',
+      'not_found' => 'No se encontraron Episodios',
+      'not_found_in_trash' => 'No hay Episodios en la papelera',
+      'all_items' => 'Todos los Episodios',
+      'menu_name' => 'Episodios',
+      'name_admin_bar' => 'Episodio' // 👈 Esto cambia “Add Post”
     ),
     'public' => true,
     'has_archive' => true,
@@ -45,6 +68,7 @@ function oromarplay_register_episodios() {
   ));
 }
 add_action('init', 'oromarplay_register_episodios');
+
 
 // Registro de CPT: Shorts
 function oromarplay_register_shorts() {
@@ -79,6 +103,34 @@ function oromarplay_register_banner() {
   ));
 }
 add_action('init', 'oromarplay_register_banner');
+
+function oromarplay_register_clips() {
+  register_post_type('clip', array(
+    'labels' => array(
+      'name' => 'Clips',
+      'singular_name' => 'Clip',
+      'add_new' => 'Añadir Clip',
+      'add_new_item' => 'Añadir nuevo Clip',
+      'edit_item' => 'Editar Clip',
+      'new_item' => 'Nuevo Clip',
+      'view_item' => 'Ver Clip',
+      'search_items' => 'Buscar Clips',
+      'not_found' => 'No se encontraron Clips',
+      'not_found_in_trash' => 'No hay Clips en la papelera',
+      'all_items' => 'Todos los Clips',
+      'menu_name' => 'Clips',
+      'name_admin_bar' => 'Clip' // 👈 Esto reemplaza "Add Post"
+    ),
+    'public' => true,
+    'has_archive' => true,
+    'rewrite' => array('slug' => 'clip'),
+    'menu_icon' => 'dashicons-format-video',
+    'supports' => array('title', 'editor', 'thumbnail'),
+    'show_in_rest' => true,
+  ));
+}
+add_action('init', 'oromarplay_register_clips');
+
 
 function filter_episodios_by_programa_relacionado( $args, $request ) {
   if ( ! empty( $request['programa_relacionado'] ) ) {
