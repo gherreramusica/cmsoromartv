@@ -207,6 +207,50 @@ add_action('manage_episodio_posts_custom_column', function ($column, $post_id) {
     }
 }, 10, 2);
 
+// Agrega un dropdown de filtro por programa relacionado en el admin de Episodios
+add_action('restrict_manage_posts', function () {
+    global $typenow;
+    if ($typenow !== 'episodio') return;
+
+    $programas = get_posts([
+        'post_type' => 'programa',
+        'posts_per_page' => -1,
+        'orderby' => 'title',
+        'order' => 'ASC'
+    ]);
+
+    $selected = $_GET['programa_relacionado'] ?? '';
+
+    echo '<select name="programa_relacionado">';
+    echo '<option value="">Todos los programas</option>';
+    foreach ($programas as $programa) {
+        $isSelected = $selected == $programa->ID ? 'selected' : '';
+        echo '<option value="' . esc_attr($programa->ID) . '" ' . $isSelected . '>' . esc_html($programa->post_title) . '</option>';
+    }
+    echo '</select>';
+});
+
+// Filtra la lista de episodios por programa relacionado
+add_filter('parse_query', function ($query) {
+    global $pagenow;
+    if (
+        is_admin() &&
+        $pagenow === 'edit.php' &&
+        $query->get('post_type') === 'episodio' &&
+        isset($_GET['programa_relacionado']) &&
+        $_GET['programa_relacionado'] != ''
+    ) {
+        $meta_query = [
+            [
+                'key' => 'programa_relacionado',
+                'value' => (int) $_GET['programa_relacionado'],
+                'compare' => '='
+            ]
+        ];
+        $query->set('meta_query', $meta_query);
+    }
+});
+
 
 // add_action('rest_api_init', function () {
 //   register_rest_field('guia', 'acf_fields', [
