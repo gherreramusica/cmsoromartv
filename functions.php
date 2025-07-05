@@ -195,6 +195,19 @@ function register_post_type_guia_programacion() {
 }
 add_action('init', 'register_post_type_guia_programacion');
 
+add_filter('manage_episodio_posts_columns', function ($columns) {
+    $columns['programa_relacionado'] = 'Programa relacionado';
+    return $columns;
+});
+
+add_action('manage_episodio_posts_custom_column', function ($column, $post_id) {
+    if ($column === 'programa_relacionado') {
+        $programa = get_field('programa_relacionado', $post_id);
+        echo $programa ? esc_html(get_the_title($programa)) : '<em>—</em>';
+    }
+}, 10, 2);
+
+
 // add_action('rest_api_init', function () {
 //   register_rest_field('guia', 'acf_fields', [
 //     'get_callback' => function ($post_arr) {
